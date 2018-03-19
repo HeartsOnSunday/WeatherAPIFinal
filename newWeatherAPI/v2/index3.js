@@ -1,11 +1,11 @@
+//refined js
 /* global navigator */
 /* global $ */
 /* global APIKEY */
 /* global position */
 /* global location*/
 
-//$(function(){
-   // var C = false;
+
     var apiData  = "";
     var backgroundImg = ["image1", "image2"];
     var lat = 0;
@@ -14,7 +14,6 @@
     var C =
 
 
-//
     $("#locationHere").click(function(){
        
         $.getJSON("//freegeoip.net/json/").done(function(location){
@@ -28,9 +27,10 @@
         });
     });
     
+    
     $("#weatherHere").click(function(){
         
-        if (navigator.geolocation) {
+            if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 var lat = position.coords.latitude;
                 var lon = position.coords.longitude;
@@ -46,71 +46,22 @@
                         $("#yourWind").html(data.wind.speed);
                         $("#yourTemp").html(data.main.temp + "\&deg\F");
                         
-                        
-                        //toggle function here:
-                     /*   $("#degreesToggle").click(function(){
-                            var F = data.main.temp;
-                            console.log(F);
-                            var C = 0;
-                            console.log(C);
-                            
-                             $("#yourTemp").toggle(function() {
-                                 
-                                 $('#yourTemp').html(C+'\&deg\C');
-                             });
-                             console.log("toggle");
-                             
-                             
-                            
-                             
-                             
-                             
-                             
-                        }); 
-                        */
-                        
-                        
+                    
                         $("#degreesToggle").click(function(){
                             var F = data.main.temp;
                             console.log(F);
-                            var C = 0;
+                            var C = Math.round((F-32)*(5/9));
                             console.log(C);
-                            
-                             $("#yourTemp").html(function() {
-                                 
-                                 $('#yourTemp').html(C+'\&deg\C');
-                             });
+   //FIX THIS HERE!!! YOU NEED A BETTER TOGGLE FUNCTION                         
+                            if(F === data.main.temp) {
+                             $("#yourTemp").html(C);
+                                 } else {
+                                     $("#yourTemp").html(F);
+                                 }
                              console.log("toggle");
-                        
-                        
-                         });
+                        });
                     });
-        }
-    );
-    
-    
-};
-
-});
-//});
-    
-   /* function displayTemp (F,C){
-        /*var C = 0;
-       /* var F = 0;
-       if(!F) {
-            console.log("error");
-        } else {return Math.round((F-32)*(5/9)) + '&deg; C';
-        console.log(Math.round(F) + '&deg; F');
-        console.log(C);
-        console.log(F);
-    }
-    }*/
-
-
-
-
-
-
-
-
-
+            })
+            
+        };
+    });
