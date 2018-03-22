@@ -42,23 +42,43 @@
                         console.log("did the data get logged?");
                         apiData = data;
                         console.log(data);
+                        var icon = data.weather[0].icon;
+                        var weatherIcon = 'https://openweathermap.org/img/w/' + icon + '.png';
                         $("#yourDescription").html(data.weather[0].description);
-                        $("#yourWind").html(data.wind.speed);
+                        $("#main").html(data.weather[0].main);
+                        $("#yourWind").html(data.wind.speed + "MPH");
                         $("#yourTemp").html(data.main.temp + "\&deg\F");
-                        
-                    
+                        $("#icon").html('<img src='+weatherIcon+'>');
+     
                         $("#degreesToggle").click(function(){
                             var F = data.main.temp;
                             console.log(F);
                             var C = Math.round((F-32)*(5/9));
                             console.log(C);
-   //FIX THIS HERE!!! YOU NEED A BETTER TOGGLE FUNCTION                         
-                            if(F === data.main.temp) {
+                            console.log(data.main.temp);
+   //FIX THIS HERE!!! YOU NEED A BETTER TOGGLE FUNCTION
+                            if (!F) {
+                                    $("#yourTemp").html(data.main.temp).toggle();
+                                    console.log("smokey");
+                            } else {
+                                    $("#yourTemp").html(C + " degrees C");
+                                    console.log("Bandit");
+                                    }
+   
+   
+   
+   
+   
+   
+   
+      /*                      if(F === data.main.temp) {
                              $("#yourTemp").html(C);
+                             console.log("it toggled");
                                  } else {
+                                     console.log("toggle");
                                      $("#yourTemp").html(F);
-                                 }
-                             console.log("toggle");
+                                 } */
+                            // console.log("toggle");
                         });
                     });
             })
